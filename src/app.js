@@ -1,30 +1,34 @@
-// Here is the starting point for your application code.
-
-// Small helpers you might want to keep
-import './helpers/context_menu.js';
-import './helpers/external_links.js';
-
-// All stuff below is just to show you how it works. You can delete all of it.
-import { remote } from 'electron';
-import jetpack from 'fs-jetpack';
-import { greet } from './hello_world/hello_world';
+// Use new ES6 modules syntax for everything.
+import { remote } from 'electron'; // native electron module
+import jetpack from 'fs-jetpack'; // module loaded from npm
+import fh from './helpers/fileHelpers.js';
 import env from './env';
+import baseView from './Views/base.js';
+import startView from './Views/start.js';
 
-const app = remote.app;
-const appDir = jetpack.cwd(app.getAppPath());
+// set up helpers
+var fileHelpers = fh(remote, jetpack);
 
-// Holy crap! This is browser window with HTML and stuff, but I can read
-// here files form disk like it's node.js! Welcome to Electron world :)
-const manifest = appDir.read('package.json', 'json');
+// set up angular application
+var ngapp = angular.module('application', [
+    'ui.router', 'ct.ui.router.extras'
+]);
 
-const osMap = {
-  win32: 'Windows',
-  darwin: 'macOS',
-  linux: 'Linux',
-};
+//this allows urls with and without trailing slashes to go to the same state
+ngapp.config(function ($urlMatcherFactoryProvider) {
+    $urlMatcherFactoryProvider.strictMode(false);
+});
 
-document.querySelector('#greet').innerHTML = greet();
-document.querySelector('#os').innerHTML = osMap[process.platform];
-document.querySelector('#author').innerHTML = manifest.author;
-document.querySelector('#env').innerHTML = env.name;
-document.querySelector('#electron-version').innerHTML = process.versions.electron;
+// state redirects
+ngapp.run(['$rootScope', '$state', function ($rootScope, $state) {
+    $rootScope.$on('$stateChangeStart', function (evt, toState, params, fromState) {
+        if (toState.redirectTo) {
+            evt.preventDefault();
+            $state.go(toState.redirectTo, params, {location: 'replace'});
+        }
+    });
+}]);
+
+// VIEWS
+baseView(ngapp, remote);
+startView(ngapp);

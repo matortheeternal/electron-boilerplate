@@ -1,5 +1,5 @@
 const gulp = require('gulp');
-const less = require('gulp-less');
+const sass = require('gulp-sass');
 const watch = require('gulp-watch');
 const batch = require('gulp-batch');
 const plumber = require('gulp-plumber');
@@ -18,11 +18,12 @@ gulp.task('bundle', () => {
   ]);
 });
 
-gulp.task('less', () => {
-  return gulp.src(srcDir.path('stylesheets/main.less'))
-  .pipe(plumber())
-  .pipe(less())
-  .pipe(gulp.dest(destDir.path('stylesheets')));
+gulp.task('sass', function () {
+  return gulp.src(srcDir.path('stylesheets/*'))
+    .pipe(plumber())
+    .pipe(wait(250))
+    .pipe(sass())
+    .pipe(gulp.dest(destDir.path('stylesheets')));
 });
 
 gulp.task('environment', () => {
@@ -43,9 +44,9 @@ gulp.task('watch', () => {
   watch('src/**/*.js', batch((events, done) => {
     gulp.start('bundle', beepOnError(done));
   }));
-  watch('src/**/*.less', batch((events, done) => {
-    gulp.start('less', beepOnError(done));
+  watch('src/**/*.scss', batch((events, done) => {
+      gulp.start('sass', beepOnError(done));
   }));
 });
 
-gulp.task('build', ['bundle', 'less', 'environment']);
+gulp.task('build', ['bundle', 'sass', 'environment']);

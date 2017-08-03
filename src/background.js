@@ -33,6 +33,12 @@ if (env.name !== 'production') {
 app.on('ready', () => {
   setApplicationMenu();
 
+  var appUrl = url.format({
+    pathname: path.join(__dirname, 'app.html'),
+    protocol: 'file:',
+    slashes: true
+  });
+
   const mainWindow = createWindow('main', {
     width: 1000,
     height: 600,
@@ -46,6 +52,11 @@ app.on('ready', () => {
 
   if (env.name === 'development') {
     mainWindow.openDevTools();
+    mainWindow.webContents.on('devtools-opened', function() {
+      mainWindow.loadURL(appUrl);
+    });
+  } else {
+    mainWindow.loadURL(appUrl);
   }
 });
 
