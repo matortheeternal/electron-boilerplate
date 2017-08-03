@@ -3,6 +3,7 @@ const sass = require('gulp-sass');
 const watch = require('gulp-watch');
 const batch = require('gulp-batch');
 const plumber = require('gulp-plumber');
+const wait = require('gulp-wait');
 const jetpack = require('fs-jetpack');
 const bundle = require('./bundle');
 const utils = require('./utils');

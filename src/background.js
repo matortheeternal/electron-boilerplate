@@ -31,7 +31,7 @@ if (env.name !== 'production') {
 }
 
 app.on('ready', () => {
-  setApplicationMenu();
+  //setApplicationMenu();
 
   var appUrl = url.format({
     pathname: path.join(__dirname, 'app.html'),
@@ -42,13 +42,8 @@ app.on('ready', () => {
   const mainWindow = createWindow('main', {
     width: 1000,
     height: 600,
+    frame: false
   });
-
-  mainWindow.loadURL(url.format({
-    pathname: path.join(__dirname, 'app.html'),
-    protocol: 'file:',
-    slashes: true,
-  }));
 
   if (env.name === 'development') {
     mainWindow.openDevTools();
