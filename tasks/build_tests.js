@@ -21,7 +21,7 @@ const generateEntryFile = (dir, destFileName, filePattern) => {
   });
 };
 
-gulp.task('build-unit', ['environment'], () => {
+gulp.task('build-unit', ['environment', 'build'], () => {
   const srcDir = jetpack.cwd('src');
   const destDir = jetpack.cwd('app');
 
