@@ -5,6 +5,7 @@ import fh from './helpers/fileHelpers.js';
 import env from './env';
 import baseView from './Views/base.js';
 import startView from './Views/start.js';
+import basicService from './Services/basicService.js';
 
 // set up helpers
 var fileHelpers = fh(remote, jetpack);
@@ -28,6 +29,9 @@ ngapp.run(['$rootScope', '$state', function ($rootScope, $state) {
         }
     });
 }]);
+
+// SERVICES
+basicService(ngapp);
 
 // VIEWS
 baseView(ngapp, remote);
