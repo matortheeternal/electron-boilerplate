@@ -1,8 +1,8 @@
-# electron-boilerplate [![Build Status](https://travis-ci.org/szwacz/electron-boilerplate.svg?branch=master)](https://travis-ci.org/szwacz/electron-boilerplate) [![Build status](https://ci.appveyor.com/api/projects/status/s9htc1k5ojkn08fr?svg=true)](https://ci.appveyor.com/project/szwacz/electron-boilerplate)
+# electron-boilerplate
 
 A minimalistic yet comprehensive boilerplate application for [Electron runtime](http://electron.atom.io). Tested on macOS, Windows and Linux.  
 
-This project does not impose on you any framework (like Angular or React). It tries to give you only the 'electron' part of technology stack so you can pick your favorite tools to build the actual app.
+This project affixes the AngularJS framework (pre-2.0) onto the original [electron-boilerplate](https://github.com/szwacz/electron-boilerplate).
 
 # Quick start
 
