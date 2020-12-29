@@ -42,7 +42,11 @@ app.on('ready', () => {
   const mainWindow = createWindow('main', {
     width: 1000,
     height: 600,
-    frame: false
+    frame: false,
+    webPreferences: {
+      nodeIntegration: true,
+      enableRemoteModule: true
+    }
   });
 
   if (env.name === 'development') {
